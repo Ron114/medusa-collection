@@ -1,0 +1,19 @@
+.row.vertical-align
+  .col-xs-5
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        File Group:
+      %small #{@file_group.title}
+    #export_message
+  .col-xs-7
+    .btn-toolbar.pull-right
+      = render 'actions'
+      - if content_for?(:extra_links)
+        .btn-group
+          = yield(:extra_links)
+
+= yield
+
+= render 'events/modal_form', eventable: @file_group, remote: false, dialog_id: :addEventModal

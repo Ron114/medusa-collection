@@ -1,0 +1,13 @@
+%td.dropdown
+  = render 'shared/small_dropdown_toggle', title: :Actions, text: 'Action'
+  %ul.dropdown-menu.dropdown-menu-right{role: 'menu'}
+    %li.dropdown-header{role: 'presentation'} Events
+    %li.event-action{role: 'presentation'}= link_to 'View', events_file_group_path(file_group)
+    %li.event-action{role: 'presentation'}= link_to 'Add', new_event_file_group_path(file_group), remote: true
+    %li.divider
+    %li.assessment-action.dropdown-header{role: 'presentation'} Assessments
+    %li.assessment-action{role: 'presentation'}= link_to 'View', assessments_file_group_path(file_group)
+    %li.assessment-action{role: 'presentation'}= link_to 'Add', new_assessment_path(assessable_id: file_group.id, assessable_type: file_group.class.name)
+    %li.divider
+    %li.dropdown-header{role: 'presentation'} Related File Groups
+    %li.related-file-group-action{role: 'presentation'}= link_to 'Add', edit_polymorphic_path(file_group, active_tab: '#related-file-groups')

@@ -1,0 +1,7 @@
+.row.vertical-align
+  .col-xs-6
+    = render 'layouts/page_header' do
+      Project:
+      %small #{@project.title}
+
+= yield

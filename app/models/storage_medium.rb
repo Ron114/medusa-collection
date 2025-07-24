@@ -1,0 +1,3 @@
+class StorageMedium < ApplicationRecord
+
+end

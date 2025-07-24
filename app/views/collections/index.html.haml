@@ -1,0 +1,12 @@
+.row.vertical-align
+  .col-md-4
+    = render layout: 'layouts/page_header' do
+      Collections
+  .col-md-8
+    = render partial: 'index_buttons'
+
+- cache(cache_key_for_all(Collection)) do
+  = render 'index_table'
+
+.row
+  = primary_button 'Add Collection', new_collection_path

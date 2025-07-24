@@ -1,0 +1,16 @@
+-# must pass the form as f
+= f.input :collection_id, as: :hidden, input_html: {value: @collection.id}
+= f.input :producer_id, collection: producers_select_collection, include_blank: false
+= f.input :provenance_note, label: 'Provenance Note'
+= f.input :acquisition_method, label: 'Acquisition method', as: :select, allow_blank: true, include_blank: false, collection: acquisition_methods_collection
+- if @file_group.new_record?
+  = f.input :storage_level, as: :select, include_blank: false, collection: FileGroup.storage_levels
+  %p
+    Related file groups can only be defined for an already saved file group.
+- else
+  = f.input :storage_level, disabled: true
+  = render partial: 'form_related_file_groups'
+= f.input :external_file_location
+= f.input :staged_file_location
+= f.input :total_file_size, label: 'Total file size (GB)', disabled: @file_group.is_a?(BitLevelFileGroup), input_html: {value: @file_group.file_size}
+= f.input :total_files, disabled: @file_group.is_a?(BitLevelFileGroup), input_html: {value: @file_group.file_count}

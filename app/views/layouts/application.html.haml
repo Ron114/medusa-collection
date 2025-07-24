@@ -1,0 +1,32 @@
+!!! 5
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}/
+    %title= content_for?(:title) ? yield(:title) : 'Medusa'
+    = csrf_meta_tags
+
+    / Le styles
+    = stylesheet_link_tag 'application', media: 'all'
+
+    = javascript_include_tag 'application'
+
+    / Le fav and touch icons
+    = favicon_link_tag 'favicon.ico'
+    -#%link{href: '/images/apple-touch-icon.png', rel: 'apple-touch-icon'}/
+    -#%link{href: '/images/apple-touch-icon-72x72.png', rel: 'apple-touch-icon', sizes: '72x72'}/
+    -#%link{href: '/images/apple-touch-icon-114x114.png', rel: 'apple-touch-icon', sizes: '114x114'}/
+
+
+  %body{'data-spy' => 'scroll', 'data-target' => '.affix-sidebar'}
+    = render 'shared/library_header'
+    = render 'shared/global_navigation'
+    .container
+      .row
+        .col-sm-12
+          = render 'shared/flash', flash: flash
+      - if @breadcrumbable
+        = render 'shared/breadcrumbs'
+      .clearfix
+      = yield
+      .clearfix
+    = render 'shared/library_footer'

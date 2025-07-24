@@ -1,0 +1,6 @@
+%h2
+  Collections
+
+%div
+  = render 'layouts/standard_table', id: :collections, headers: ['External ID', 'Title', 'Contact', 'Size (GB)', ''] do
+    = render partial: 'repositories/collections_table_row', collection: @repository.collections, as: :collection, cached: true

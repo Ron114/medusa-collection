@@ -1,0 +1,20 @@
+- content_for :extra_links do
+  %a.btn.btn-default{'data-toggle' => 'collapse', href: '#metadata', 'aria-expanded' => 'false', 'aria-controls' => 'metadata', role: :button}
+    Metadata
+    %span.caret
+= render layout: 'layout_single' do
+  - cache(@collection) do
+    .row
+      = render 'show_about'
+    - if medusa_user?
+      .row
+        = render 'file_groups_table'
+      - if @projects.present?
+        %hr
+        .row
+          %h2 Projects
+          = render 'projects/index_table'
+      %hr
+      .row
+        #file-statistics
+          = render partial: 'shared_js/datatables_load', locals: {id: 'file-statistics', path: show_file_stats_collection_path(@collection), table_ids: %w(file_stats_content_type file_stats_file_extension)}

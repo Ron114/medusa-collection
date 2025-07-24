@@ -1,0 +1,26 @@
+.row.vertical-align
+  .col-xs-6
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        Project:
+      %small #{@project.title}
+  .col-xs-6
+    .btn-toolbar.pull-right
+      .btn-group
+        = default_button('Add Item', new_item_path(project_id: @project.id), remote: true, id: 'add_item_button')
+        = icon_default_button('Upload Items', 'upload', start_items_upload_project_path(@project))
+        - unless current_page?(action: 'show') and @batch.blank?
+          = icon_default_button('View Project', 'home', @project)
+        = attachments_button(attachments_project_path(@project))
+        .btn-group
+          = render 'shared/dropdown_toggle', title: :Export, text: :Export
+          %ul.dropdown-menu
+            %li= link_to 'CSV', project_path(@project, format: 'csv', batch: @batch)
+        = edit_button(@project)
+      - if content_for?(:extra_links)
+        .btn-group
+          = yield(:extra_links)
+
+= yield

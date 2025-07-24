@@ -1,0 +1,9 @@
+.row
+  %h4.text-center
+    Existing logical extensions
+.row.justify-content-center
+  .col-md-2
+  - logical_extension_groups.each do |group|
+    .col-md-3
+      - group.each do |logical_extension|
+        .logical-extension= logical_extension.label

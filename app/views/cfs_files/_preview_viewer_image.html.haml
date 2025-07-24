@@ -1,0 +1,14 @@
+%div#openseadragon1{style: 'width: 300px; height: 300px;'}
+= javascript_include_tag '/openseadragon/openseadragon.js'
+:javascript
+  var viewer = OpenSeadragon({
+    id: "openseadragon1",
+    prefixUrl: "/openseadragon/images/",
+    preserveViewport: true,
+    minZoomLevel: 1,
+    defaultZoomLevel: 1,
+    showRotationControl: true,
+    tileSources:   [
+      "/cfs_files/#{@file.id}/preview_iiif_image/info.json"
+    ]
+  });

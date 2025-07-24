@@ -1,0 +1,8 @@
+#file_format_notes.panel.panel-default
+  .panel-heading
+    .pull-right
+      = small_default_button('Add', new_file_format_note_path(@file_format), remote: true, title: 'Add Note')
+    %h4 Notes
+  .panel-body
+    - @file_format.file_format_notes.each do |note|
+      = render'file_format_notes/show', note: note

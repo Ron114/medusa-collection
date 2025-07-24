@@ -1,0 +1,18 @@
+%ul.nav.nav-tabs#search_tables
+  - @helpers.each do |helper|
+    %li
+      %a{href: "##{helper.tab_id}", 'data-toggle': 'tab', title: helper.tab_label}
+        = helper.tab_label
+        %span.indicator-icon= fa_icon('spinner', class: 'search-unknown')
+
+.tab-content
+  - @helpers.each do |helper|
+    .tab-pane{id: helper.tab_id}
+      %table.table.table-striped{id: helper.table_id}
+        %thead
+          %tr
+            - helper.headers.each do |header|
+              %th= header
+      = render 'table_init_js', helper: helper
+
+= render 'show_tabs_js'

@@ -1,0 +1,202 @@
+#allowed amqp accrual clients
+#for each a storage root with the same name must be configured in the storage.amqp section
+amqp_accrual:
+  placeholder_md5: d38c5e4731bbf7497501d4821f8af315
+  idb:
+    #set to false to turn off this accrual client
+    active: true
+    #set to true to allow deletion messages to work
+    allow_delete: false
+    #queue for processing accruals
+    delayed_job_queue: idb
+    #amqp queues for exchanging messages about accruals with this client
+    incoming_queue: idb_to_medusa
+    outgoing_queue: medusa_to_idb
+    #file group that will take content from this accrual client
+    file_group_id: 1401
+    #whether or not to return some extra information in amqp messages - this may be restructured to allow clients to be
+    #configured to get exactly the information they want
+    return_directory_information: true
+book_tracker:
+  items_url: https://book-tracker.example.com/books
+  tasks_url: https://book-tracker.example.com/tasks
+#If this is set then Workflow::AccrualJobs (and potentially other accruals in the future) may use a
+#separate copying server to do copying work. The queues are hooked up with the medusa.amqp information.
+#The copying server is used if both the source and target root names appear in the 'roots' config below,
+#where these roots are the the names used in the storage section. It is assumed that the copying server
+#is configured to translate these root names to the correct storage endpoints.
+copy_server:
+  incoming_queue: copier_to_medusa_dev
+  outgoing_queue: medusa_to_copier_dev
+  roots:
+    - storage_root_name_1
+    - storage_root_name_2
+#The root of the DLS application, needed to make links and such from the collection registry
+dls:
+  base_url: https://dls.example.com
+#this is a map of netids to an array of collection ids - the users will get
+#download and export permissions on files in that collection. Intended to allow this in
+#a temporary, ad-hoc fashion
+download_users: {}
+#settings for communication with downloader
+downloader:
+  #downloader root - configured on the other side as well
+  root: medusa
+  #queues to use
+  incoming_queue: downloader_to_medusa_dev
+  outgoing_queue: client_to_downloader_dev
+  #Bunny style amqp connection options - note that these are distinct from the main amqp options because the downloader
+  #may be on a different vhost/etc.
+  amqp: {}
+fits:
+  #default size to do
+  batch_size: 1000
+  #In certain cases it may be advantageous to call a fits binary directly, but this is optional
+  binary: /path/to/fits/binary
+  #url for fits server
+  server_url: http://localhost:4567
+#medusa_host is used by the models to help generate the appropriate URLs
+medusa_host: medusa.library.illinois.edu
+#connection to the iiif image server
+iiif:
+  host: iiif.example.com
+  port: 80
+  #this is the path from the iiif server's base path
+  root: medusa/iiif/2
+ldap:
+  host: ad.uillinois.edu
+  port: 389
+  protocol: tls
+  user: your_ldap_user
+  passwd: your_password
+  base: DC=ad,DC=uillinois,DC=edu
+  search: ^CN=([^,]+),((CN|OU)=[^,]+,)*DC=ad,DC=uillinois,DC=edu$
+mailer:
+  #You can set the following to add an extra bit into the subjects of emails that go out,
+  #making is easier to distinguish production/staging/etc. This is done with an interceptor in config/initializers.
+  #You should leave this key out (comment it out) in the test environment!
+  system_name: development
+#general medusa configuration
+medusa:
+  #medusa server information for generating certain urls that need more than just the path
+  server: http://localhost:3000
+  #'cfs' staging file config. Note that this doesn't strictly need to be a dx/cfs file system,
+  #but we use that name in order to distinguish from our internal bit file stuff for now.
+  cfs:
+    #optional - set if you have a local fits to use
+    fits_home: /Users/hding2/src/fits
+  #This opens a few actions to basic auth so that machine clients can use them
+  basic_auth: machine_user:machine_password
+  #AD groups used to allow use and full administration of medusa
+  medusa_users_group: Library Medusa Users
+  medusa_admins_group: Library Medusa Admins
+  medusa_project_admins_group: Library Medusa Projects
+  medusa_superusers_group: Library Medusa Super Admins
+  #approximate number of days to elapse between fixity checks
+  fixity_interval: 90
+  fixity_server:
+    #AMQP queues to communicate with fixity server
+    outgoing_queue: medusa_to_fixity
+    incoming_queue: fixity_to_medusa
+  #You can set anything here that you might pass to Bunny.new. Anything you don't set just gets the Bunny default.
+  #Typical fields needed for our setup are shown below.
+  amqp:
+    #ssl: true
+    #port: 5761 #this is the default port for ssl connections
+    #host: 127.0.0.1
+    #user: user
+    #password: pw
+    #vhost: medusa
+    #verify_peer: false
+  #controls whether public view buttons show up and whether controllers allow access to public views
+  public_view_on: true
+  #where certain types of email should go. It should work for these to be single emails or arrays, though
+  #a single email to a list is preferable for mass distribution. noreply is the address used for from when
+  #appropriate. Note that tests will assume that these are set as they are in test.yml, so don't change or
+  #override what is there!
+  email:
+    admin: hding2@illinois.edu
+    feedback: hding2@illinois.edu
+    dev: hding2@illinois.edu
+    noreply: medusa-noreply@medusatest.library.illinois.edu
+#configuration for Omniauth::Shibboleth
+shibboleth:
+  host: medusatest.library.illinois.edu
+  uid_field: eppn
+  extra_fields:
+    - eppn
+    - givenName
+    - mail
+    - org_dn
+    - sn
+    - telephoneNumber
+    - uid
+    - entitlement
+    - unscoped_affiliation
+  request_type: header
+  info_fields:
+    email: mail
+smtp:
+  #These are settings as expected for ActionMailer::Base.smtp_settings
+  smtp_settings:
+    address: hostname.com
+    port: 587
+    enable_starttls_auto: true
+    authentication: :login
+    user_name: username
+    password: password
+    domain: domain.edu
+  web_host: "localhost:3000"
+#These are config for roots or lists of roots as required by the medusa_storage gem.
+#You may want to use YAML facilities to extract commonalities for S3 roots if they exist
+storage:
+  main_root:
+    :name: main_storage
+    :type: filesystem
+    :path: /path/to/storage/root
+    # rclone mount use deprecated
+  #For some operations if the main bucket is S3, it is useful and much more efficient to have this
+  #bucket also mounted via 'rclone mount'. If that is done, configure a filesystem root under
+  #the main_root_rclone key. For example, FITS generation and running 'file' are much
+  #improved this way, requiring no temporary copy of the S3 object to be created. In fact,
+  #this _could_ be used more generally - all that is required is that things that use it only read
+  #and that whatever it _is_ exposes the main_root as a filesystem. So in a theoretical sense it
+  #would work if that were, say, an AWS storage gateway, an alternate fuse type mount of a bucket, etc.
+  main_root_rclone: ~
+  #set this if there is a backup location. It is used only with the file_group delete
+  #procedure in order to make the final delete apply to the backup copy as well.
+  main_root_backup: ~
+  amqp:
+    - :name: idb
+      :type: filesystem
+      :path: <%= Rails.root %>/tmp/idb-staging/development
+#where project content for automatic ingest is staged
+  project_staging:
+    :name: project_staging
+    :type: filesystem
+    :path: /project/staging/directory
+  #location to use for temporary storage - note on S3 EC2 machines you might
+  #want to put this on an EFS volume, as their local storage is typically small.
+  #Note that we have code to use local storage for 'small' files, whatever that
+  #means, that will eventually be configurable
+  tmpdir: /path/to/medusa-collection-registry/tmp
+  #For each root the name gives a tag to be shown to start in the browser when accruing
+  accrual:
+    - :name: staging-1
+      :type: filesystem
+      :path: /path/to/staging-roots/dev-1
+  fits:
+    :name: fits
+    :type: filesystem
+    :path: /path/to/fits
+  reports:
+    :name: reports
+    :type: filesystem
+    :path: /path/to/reports
+superusers:
+  - superadmin@example.com
+#settings for triple store integration
+#triple_store:
+#  triple_store_base_url: http://localhost:3030/test
+#  medusa_base_url: http://localhost:3000
+#  medusa_rdf_prefix: https://medusa.library.illinois.edu/terms/

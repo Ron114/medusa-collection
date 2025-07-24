@@ -1,0 +1,19 @@
+- content_for :extra_links do
+  %a.btn.btn-default{'data-toggle':'collapse', href: '#metadata', 'aria-expanded':'false', 'aria-controls':'metadata', role: :button}
+    Metadata
+    %span.caret
+- if @batch
+  - content_for :title do
+    Project (batch #{@batch}):
+= render 'layout_single' do
+  #metadata.row.collapse
+    .col-md-4
+      .well
+        = render 'show_metadata'
+    .col-md-8
+      = render 'show_summary_and_specs'
+
+  #items_container.row
+    = render 'items_table'
+
+  #new_item_form_placeholder

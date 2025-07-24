@@ -1,0 +1,22 @@
+#metadata.row.collapse
+  .col-md-4
+    .well
+      %h3 Descriptive metadata
+      = render 'public_notice'
+      = render partial: 'show_descriptive_metadata'
+    - if @collection.child_collections.present?
+      .well
+        %h3 Child Collections
+        = render partial: 'show_child_collections'
+    - if @collection.parent_collections.present?
+      .well
+        %h3 Parent Collections
+        = render partial: 'show_parent_collections'
+  .col-md-4
+    .well
+      %h3 Administrative metadata
+      = render partial: 'show_administrative_metadata'
+  .col-md-4
+    .well
+      %h3 Rights metadata
+      = render partial: 'rights_declarations/show', locals: {rights_declaration: @collection.rights_declaration}

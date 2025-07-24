@@ -1,0 +1,18 @@
+- content_for :form_sidebar_extra do
+  %hr
+  %h4 Catalog lookup
+  #warnings
+  #barcode_items
+= simple_form_for @item, html: {class: 'form-horizontal'}, wrapper: :horizontal_form, remote: @remote do |f|
+  .container
+    .row
+      = render 'form_sidebar', f: f, object: @item, cancel_return: project_path(@item.project)
+      .col-sm-10
+        .row
+          = render 'form_administrative_metadata', f: f
+        .row
+          = render 'form_catalog_metadata', f: f
+        .row
+          = render 'form_archival_metadata', f: f
+  :javascript
+    $(function () {prevent_enter_in_barcode_field = #{@item.barcode.blank?}})

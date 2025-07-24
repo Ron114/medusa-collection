@@ -1,0 +1,44 @@
+%ul.nav.navbar-nav.navbar-right
+  %li
+    %a{href: '#', 'data-toggle': 'modal', 'data-target': '#more-actions'}
+      More
+      %span.caret
+= render 'layouts/bootstrap_modal', id: 'more-actions' do
+  .modal-header
+    %a.close{'data-dismiss': 'modal', 'aria-label': 'Close', href: '#'}
+      %span{'aria-hidden': 'true'}
+        &times;
+    %h4.modal-title More actions
+  .modal-body
+    .row
+      .col-sm-4
+        %strong View by:
+        %ul
+          %li= link_to 'Producers', producers_path
+          %li= link_to 'Access Systems', access_systems_path
+          %li= link_to 'Digital Content Format Registry', file_formats_path
+          %li= link_to 'Digital Content Formats (XML)', file_formats_path(format: :xml)
+          %li= link_to 'Rendering Profiles', file_format_profiles_path
+          %li= link_to 'Digital Content Format Tests', file_format_tests_path
+          %li= link_to 'Digital Content Format Tests (CSV)', file_format_tests_path(format: :csv)
+          - if safe_can?(:read, ArchivedAccrualJob)
+            %li= link_to 'Archived Accrual Jobs', archived_accrual_jobs_path
+          - if medusa_user?
+            %li= link_to 'Timeline', timeline_path
+        %strong Book Tracker:
+        %ul
+          %li= link_to 'Items', Settings.book_tracker.items_url
+          %li= link_to 'Tasks', Settings.book_tracker.tasks_url
+      .col-sm-4
+        %strong Quick Links:
+        %ul
+          %li= link_to 'Create a Collection', new_collection_path
+          %li= link_to 'Feedback', static_page_path(key: :feedback)
+        %strong Learn More:
+        %ul
+          %li= link_to 'Policies', static_page_path(key: :policies)
+          %li= link_to 'Technology', static_page_path(key: :technology)
+          %li= link_to 'Staff', static_page_path(key: :staff)
+          %li= link_to 'Wiki', Settings.medusa.wiki_url
+          %li= link_to 'Help', static_page_path(key: :help)
+          %li= link_to 'FAQ', Settings.medusa.faq_url

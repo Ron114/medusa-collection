@@ -1,0 +1,29 @@
+-# must pass in accrual_job as a local
+%tr{id: "accrual_job_#{accrual_job.id}"}
+  %td= accrual_job.id
+  %td= accrual_job.created_at.to_date
+  %td= accrual_job.file_group.try(:title)
+  %td
+    #{accrual_job.collection.try(:title)}
+    - if accrual_job.collection.try(:external_id).present?
+      [#{accrual_job.collection.external_id}]
+  %td= accrual_job.user.net_id
+  %td= small_icon_default_button('View Report', 'eye', view_report_workflow_accrual_job_path(accrual_job), remote: true) if accrual_job.has_report?
+  %td{id: "accrual_status_#{accrual_job.id}", class: accrual_conflict_indicator_class(accrual_job)}
+    %a(href="/workflow/accrual_jobs/#{accrual_job.id}" )
+      #{accrual_job.status_label}
+    -# - if accrual_job.state == 'copying' or accrual_job.state == 'await_copy_messages'
+    -#   (#{accrual_job.workflow_accrual_keys.count})
+    -# - if accrual_job.state == "send_copy_messages"
+    -#   ="(#{accrual_job.workflow_accrual_keys.copy_requested.count} of #{accrual_job.workflow_accrual_keys.count})"
+    -# - if accrual_job.state == "assessing" or accrual_job.state == 'await_assessment'
+    -#   ="All subdirectory records are created before any file records are created."
+    -#   ="(subdirectories: #{accrual_job.cfs_directory.recursive_subdirectory_ids.count} records created)\n"
+    -#   ="(files: #{accrual_job.cfs_directory.recursive_cfs_file_ids.count} records created)"
+    -#   ="(incomplete task count: #{accrual_job.cfs_directory.incomplete_task_count})"
+    %br
+    -#= accrual_job.delayed_job_has_error? ? "JOB ERROR" : "JOB OK"
+  %td.dropdown{id: "accrual_actions_#{accrual_job.id}"}
+    - if accrual_job.approvable_by?(current_user)
+      = render 'shared/small_dropdown_toggle', title: :Actions, icon: 'cog'
+      = render partial: 'accruals/accrual_workflow_actions', locals: {accrual_job: accrual_job}

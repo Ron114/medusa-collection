@@ -1,0 +1,14 @@
+= simple_form_for @producer, html: {class: 'form-horizontal'}, wrapper: :horizontal_form do |f|
+  .row
+    - content_for(:form_sidebar_extra) do
+      %hr
+      = render 'shared/definitions/producer'
+    = render 'shared/form_sidebar', f: f, object: @producer, cancel_return: (producers_path if @producer.new_record?)
+    .col-sm-9
+      .tabbable
+        = render 'shared/tab_header', id: 'edit-tabs', tabs: producer_form_tab_list
+        .tab-content
+          #base.tab-pane.active
+            = render 'form_metadata', f: f
+          #notes.tab-pane
+            = render 'form_notes', f: f

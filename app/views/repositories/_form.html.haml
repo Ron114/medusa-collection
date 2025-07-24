@@ -1,0 +1,11 @@
+.row
+  = simple_form_for @repository, html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
+    .col-sm-12
+      = render 'form_top', f: f
+    .col-sm-6
+      = render 'form_left', f: f
+    .col-sm-6
+      = render 'form_right', f: f
+    .form-actions.col-sm-12
+      = render 'form_actions', f: f
+

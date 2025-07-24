@@ -1,0 +1,410 @@
+## Any of this stuff can be overridden in the settings/<env>.yml or settings/<env>.local.yml files, but
+## the idea is that this is fairly general stuff that shouldn't need to be configured separately
+## for the most part.
+
+# This controls how files are previewed
+cfs_file_viewers:
+  mime_types:
+    image:
+      - image/gif
+      - image/jpeg
+      - image/png
+      - image/tiff
+    video:
+      - video/avi
+      - video/m2ts
+      - video/mp4
+      - video/mpeg
+      - video/mpg
+      - video/quicktime
+      - video/webm
+      - video/x-flv
+      - video/x-ms-asf
+      - video/x-msvideo
+      - video/x-ms-wmv
+    audio:
+      - audio/3gpp, video/3gpp
+      - audio/basic
+      - audio/midi
+      - audio/mp4
+      - audio/mpeg
+      - audio/mpeg|audio/x-mpeg|video/mp4|audio/mp4|image/x-macpaint
+      - audio/ogg
+      - audio/vnd.rn-realaudio, audio/x-pn-realaudio
+      - audio/x-aiff
+      - audio/x-aiff|audio/basic|audio/mid|audio/x-midi|audio/midi|audio/vnd.qcelp
+      - audio/x-dss
+      - audio/x-gsm|video/x-mpeg|video/mpeg
+      - audio/x-mp4a-latm
+      - audio/x-ms-wma
+      - audio/x-pn-realaudio
+      - audio/x-wav
+      - audio/x-wave
+    text:
+      - text/calendar
+      - text/css
+      - text/csv
+      - text/html
+      - text/PGP
+      - text/plain
+      - text/rtf
+      - text/troff
+      - text/x-asm
+      - text/x-c
+      - text/x-c++
+      - text/x-diff
+      - text/x-fortran
+      - text/x-java
+      - text/x-lisp
+      - text/x-mail
+      - text/x-makefile
+      - text/xml
+      - text/x-msdos-batch
+      - text/x-news
+      - text/x-pascal
+      - text/x-perl
+      - text/x-php
+      - text/x-python
+      - text/x-ruby
+      - text/x-shellscript
+      - text/x-tex
+      - text/x-vcard
+    pdf:
+      - application/pdf
+  extensions:
+    image:
+      - gif
+      - jp2
+      - jpeg
+      - jpg
+      - png
+      - tif
+      - tiff
+    audio:
+      - aac
+      - aif
+      - aiff
+      - au
+      - m3u
+      - m4a
+      - m4p
+      - mid
+      - mp3
+      - ogg
+      - wav
+    video:
+      - avi
+      - f4v
+      - flv
+      - m1v
+      - m2p
+      - m2v
+      - m4v
+      - mov
+      - movie
+      - mp4
+      - mpe
+      - mpeg
+      - mpg
+      - qt
+      - vob
+      - webm
+      - wm
+      - wma
+      - wmv
+    text:
+      - txt
+    pdf:
+      - pdf
+  thumbnail_size: 90
+  default_image_size: 300
+#The following are config for specific classes, using the convention classes.<class_name>.<setting_name>
+classes:
+  assessment:
+    assessment_types:
+      - external_files
+    risk_levels:
+      - low
+      - medium
+      - high
+      - urgent
+  attachment:
+    max_size: <%= 5.megabytes %>
+  cfs_file:
+    tmpdir_cutoff_size: <%= 3.gigabytes %>
+    large_file_fits_cutoff_size: <%= 5.gigabytes %>
+  concerns:
+    excluded_files:
+      - Thumbs.db
+      - .DS_Store
+    excluded_directories:
+      - CaptureOne
+  file_extensions_controller:
+    default_per_page: 25
+  file_format_test_reason:
+    initial_reasons:
+      - corrupt
+      - saved with incorrect extension
+      - software unavailable
+  file_group:
+    acquisition_methods:
+      - internal digitization
+      - vendor digitization
+      - electronic records acquisition
+      - external deposit
+  fits_data:
+    simple_string_fields:
+      :file_format: fits/identification/identity/@format
+      :file_format_version: fits/identification/identity/version
+      :mime_type: fits/identification/identity/@mimetype
+      :pronom_id: fits/identification/identity/externalIdentifier[@type="puid"]
+      :file_size: fits/fileinfo/size
+      :creating_application: fits/fileinfo/creatingApplicationName
+      :well_formed: fits/filestatus/well-formed
+      :is_valid: fits/filestatus/valid
+      :message: fits/filestatus/message
+      :audio_bit_depth: fits/metadata/audio/bitDepth
+      :audio_byte_order: fits/metadata/audio/byteOrder
+      :audio_data_encoding: fits/metadata/audio/audioDataEncoding
+      :audio_sample_rate: fits/metadata/audio/sampleRate
+      :document_protection: fits/metadata/document/isProtected
+      :document_rights_management: fits/metadata/document/isRightsManaged
+      :image_bits_per_sample: fits/metadata/image/bitsPerSample
+      :image_byte_order: fits/metadata/image/byteOrder
+      :image_color_space: fits/metadata/image/colorSpace
+      :image_compression_scheme: fits/metadata/image/compressionScheme
+      :text_character_set: fits/metadata/text/charset
+      :text_markup_basis: fits/metadata/text/markupBasis
+      :text_markup_basis_version: fits/metadata/text/markupBasisVersion
+      :video_bit_depth: fits/metadata/video/bitDepth
+      :video_compressor: fits/metadata/video/videoCompressor
+      :video_compression_scheme: fits/metadata/video/compressionScheme
+      :video_sample_rate: fits/metadata/video/sampleRate
+    date_fields:
+      :last_modified_date: fits/fileinfo/lastmodified
+      :creation_date: fits/fileinfo/created
+  item:
+    source_media_types:
+      - BD-Videodisc
+      - CD
+      - CD-R
+      - CompactFlash card
+      - Data cartridge
+      - Desktop Computer
+      - Digital Linear Tape
+      - DVD
+      - DVD-R
+      - Flash Memory
+      - 'Flash Memory: USB'
+      - 'Floppy disk: 3 1/2 inch'
+      - 'Floppy disk: 5 1/4 inch'
+      - 'Floppy disk: 8 inch'
+      - 'Hard Drive: eSATA'
+      - 'Hard Drive: Firewire'
+      - 'Hard Drive: Firewire 400'
+      - 'Hard Drive: Firewire 800'
+      - 'Hard Drive: PATA'
+      - 'Hard Drive: SCSI'
+      - 'Hard Drive: USB'
+      - Jaz disk
+      - 'Laptop Computer '
+      - LTO
+      - Magneto-Optical Disk
+      - Memory Card
+      - Open Reel Data Tape
+      - Punch Cards
+      - SD card
+      - Sy-Quest diskette
+      - Sy-Quest drive
+      - Zip disk
+    equipment_types:
+      - BC100
+      - RCAM
+      - Canon Sheetfed
+      - Epson Flatbed
+      - ATOM
+      - DIY
+    statuses:
+      - Sent to Conservation
+      - Sent to Preservation
+      - Sent to IPM
+      - Sent for cataloging
+      - Send to IA for digitization
+    ebook_statuses:
+      - "E-book not available"
+      - "Reason for rejection: IA"
+      - "Reason for rejection: Gobi"
+      - "Reason for rejection: Hathi"
+      - "Reason for rejection: Primo"
+      - "Reason for rejection: found in Redshelf"
+      - "Reason for rejection: page count"
+      - "Reason for rejection: backlog"
+      - "Reason for rejection: other"
+  resource_type:
+    type_names:
+      - archives
+      - audio
+      - audiovisual materials
+      - books and manuscripts
+      - born digital materials
+      - maps
+      - mixed material
+      - newspapers
+      - oral histories
+      - photographs
+      - postcards
+      - posters
+      - scholarly publications
+      - sheet music
+      - still image
+      - text
+      - thesis and dissertations
+      - three dimensional object
+      - video
+  static_page:
+    default_pages:
+      - create_a_collection
+      - down
+      - feedback
+      - help
+      - landing
+      - policies
+      - staff
+      - technology
+  storage_medium:
+    media_names:
+      - Blu-Ray
+      - CD-Rom
+      - cloud storage
+      - computer card (e.g. punchboard)
+      - computer tape cartridge
+      - computer tape cassette
+      - computer tape reel
+      - DVD
+      - external hard drive
+      - file server
+      - flash drive
+      - internal hard drive
+      - Iomega media (e.g. ZIP, JAZ disks)
+      - memory card (e.g SD card, CompactFlash
+      - other computer disk cartridge
+      - other optical disk- paper tape
+  workflow:
+    accrual_job:
+      assessment_attempt_count_max: <%= 100 %>
+#set up delayed job related stuff
+delayed_job:
+  #Workflow objects will use the default_queue by default. That can be changed by overriding their 'queue' method.
+  default_queue: default
+  short_queue: short
+  initial_assessment_queue: initial_assessment
+  priority:
+    amqp_accrual_delete_job: 30
+    amqp_accrual_ingest_job: 50
+    base_job: 30
+    cfs_initial_directory_assessment: 70
+    cfs_initial_file_group_assessment: 60
+    item_bulk_import: 10
+    large_file_fits: 70
+    sunspot_reindex: 100
+#These are events available to the various eventables as a hash from stored string to descriptive string
+#For the loading to work correctly the base key has to be the class where Eventable is included.
+#So for STI like file group we can't have different events available for each type; it has to be the base class here
+events:
+  collection:
+    file_group_delete_moved: File group deleted - content moved
+    file_group_delete_restored: File group restored
+    file_group_delete_final: File group completely deleted
+    file_group_delete_empty: Empty file group deleted
+  file_group:
+    created: File group created
+    external_staged: External file group staged
+    staged_to_bit: Staged files ingested to bit-level store
+    staged_deleted: Staged files deleted
+    staged_modified: Staged file group modified
+    external_deleted: External file group deleted
+    fits_performed: FITS analysis performed
+    cfs_fits_performed: FITS analysis performed on CFS root
+    bit_exported: Bit-level file group exported
+    bit_deleted: Bit-level file group deleted
+    files_added: Accrual to existing file group
+    amazon_backup_part_completed: Part of Amazon Glacier backup completed
+    amazon_backup_completed: Amazon Glacier backup completed
+    fixity_check_scheduled: Fixity check scheduled
+    fixity_check_completed: Fixity check completed
+    project_item_ingest: Project Items ingested
+  cfs_directory:
+    fixity_check_scheduled: Fixity check scheduled
+    fixity_check_completed: Fixity check completed
+    deposit_completed: Deposit completed
+  cfs_file:
+    fixity_check_run: Fixity check run
+    fixity_result: Fixity result
+    fixity_reset: Fixity reset
+    amqp_accrual: Accrued via amqp
+  repository:
+    collection_deleted: Collection deleted
+fixity_runner:
+  default_batch_size: 10000
+  fixity_stop_file: <%= File.join(Rails.root, 'fixity_stop.txt') %>
+  sub_batch_limit: 100
+  thread_count: 6
+rights_fields:
+  default_rights_basis: copyright
+  rights_bases:
+    - copyright
+    - statute
+    - license
+    - other
+  default_copyright_jurisdiction: us
+  copyright_jurisdictions:
+    us: United States
+    xxc: Canada
+    xx: No place, unknown, or undetermined
+  default_copyright_statement: ui
+  copyright_statements:
+    per: In copyright. Digitized with permission.  Contact digicc@library.illinois.edu for information.
+    uofi: Copyright of these records is held by the University of Illinois. Please contact us if you would like to use this information.
+    ui: In copyright. Digitized with permission of the University of Illinois Board of Trustees.  Contact digicc@library.illinois.edu for information.
+    nui: Copyright of these records is not owned by the University of Illinois. Please contact us for more information about these materials or if you would like to request a copy of personal use.
+    nuip: Copyright of these records is not owned by the University of Illinois and they are provided for personal use only. Any other use of these records is strictly prohibited without the express permission of the copyright holder. Please contact us for more information.
+    con: Copyright restrictions may apply to selected content. Please contact archives staff for further details.
+    ddd: Orphaned work. Due diligence documentation on file. Contact digicc@library.Illinois.edu for information.
+    ncn: Published 1923-1977 in U.S. without printed copyright notice.
+    ren: Public domain. Published 1923-1963 with notice but no evidence of copyright renewal found in Stanford Copyright Renewal Database. Contact digicc@library.illinois.edu.edu for information.
+    us: Public domain. U.S. Government document.
+    il: Public domain. Illinois state government document.
+    md: Public domain. Municipal document.
+    pd: Public domain.
+    pdpi: These records are in the public domain. Please contact us if you would like to purchase a high-resolution copy of the image.
+    unkn: The holder of copyright for these records is unknown. Please contact us if you would like to use these materials, or if you can help us identify the copyright holder.
+    cus: Custom copyright statement
+  default_access_restrictions: DISSEMINATE/DISALLOW
+  access_restrictions:
+    DISSEMINATE: Access is open and unrestricted.
+    DISSEMINATE/DISALLOW: Access is restricted.
+    DISSEMINATE/CAMPUS_ONLY: Access is restricted to campus use only.
+    DISSEMINATE/LIBRARY_ONLY: Access is restricted to library use only.
+#Control which font-awesome icons are used
+icons:
+  add_button: plus
+  attachments_button: paperclip
+  clone_button: clone
+  create_button: plus
+  delete_button: trash-o
+  edit_button: pencil-square-o
+  events_button: newspaper-o
+  red_flags_button: flag
+  view_button: eye
+  wiki_link: group
+  timeline_button: line-chart
+  access_button: external-link
+  assessments_button: cogs
+medusa:
+  faq_url: https://wiki.cites.illinois.edu/wiki/display/LibraryDigitalPreservation/Medusa+FAQ
+  fg_delete:
+    amazon_backup_on_restore: true
+    final_deletion_interval: <%= 120.days %>
+  wiki_url: https://wiki.cites.uiuc.edu/wiki/display/LibraryDigitalPreservation/Home
+
+

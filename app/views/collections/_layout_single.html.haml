@@ -1,0 +1,29 @@
+.row.vertical-align
+  .col-xs-6
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        Collection:
+      %small #{@collection.title}
+  .col-xs-6
+    .btn-toolbar.pull-right
+      .btn-group
+        = access_button(view_in_dls_collection_path(@collection))
+        = assessments_button(assessments_collection_path(@collection))
+        = events_button(events_collection_path(@collection))
+        = red_flags_button(red_flags_collection_path(@collection))
+        = timeline_button(timeline_collection_path(@collection))
+        = attachments_button(attachments_collection_path(@collection))
+        .btn-group
+          = render 'shared/dropdown_toggle', title: :Export, text: :Export
+          %ul.dropdown-menu
+            %li= link_to 'XML (MODS)', collection_path(@collection, format: :xml)
+            %li= link_to 'JSON', collection_path(@collection, format: :json)
+        = primary_button('Add Project', new_project_path(collection_id: @collection.id))
+        = edit_button(@collection)
+      - if content_for?(:extra_links)
+        .btn-group
+          = yield(:extra_links)
+
+= yield

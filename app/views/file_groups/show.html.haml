@@ -1,0 +1,22 @@
+- content_for :extra_links do
+  %a.btn.btn-default{'data-toggle': 'collapse', href: '#metadata', 'aria-expanded': 'false', 'aria-controls': 'metadata', role: :button}
+    Metadata
+    %span.caret
+
+= render 'layout_single' do
+  .row#metadata.collapse{class: ('in' unless @file_group.is_a?(BitLevelFileGroup))}
+    .col-md-4#descriptive-metadata
+      .well
+        = render 'show_descriptive_metadata'
+    .col-md-4#administrative-metadata
+      .well
+        = render 'show_administrative_metadata'
+  - if @directory.present?
+    .row
+      %hr
+      - if @file_group.accrual_unstarted?
+        No files have been added yet
+      - else
+        = render 'cfs_directories/directory_contents_table'
+  - if @accrual.present? and safe_can?(:accrue, @directory)
+    = render 'cfs_directories/accrual_dialog'

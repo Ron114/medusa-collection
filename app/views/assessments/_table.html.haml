@@ -1,0 +1,8 @@
+.row
+  .pull-left
+    = small_add_button(new_assessment_path_for(@assessable), class: 'pull-right', title: 'Add Assessment')
+
+.row
+  - if @assessments.present?
+    = render layout: 'layouts/standard_table', locals: {id: :assessments, headers: ['Name', 'For', 'Type',  'Date',  'Author', '']} do
+      = render partial: 'assessments/table_row', collection: @assessments, as: :assessment

@@ -1,0 +1,13 @@
+.row.vertical-align
+  .col-md-4
+    = render 'layouts/page_header' do
+      Digital Content Format Tests
+  .col-md-8
+    .btn-group.pull-right
+      .btn-group
+        = render 'shared/dropdown_toggle', title: :Export, text: :Export
+        %ul.dropdown-menu
+          %li= link_to 'CSV', file_format_tests_path(format: 'csv')
+
+= render 'index_table'
+

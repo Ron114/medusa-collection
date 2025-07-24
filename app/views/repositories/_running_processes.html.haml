@@ -1,0 +1,7 @@
+= render 'layouts/standard_table', id: :running_initial_assessment_scans, classes: %w(table-bordered table-condensed), caption: 'Initial Assessment Scans', headers: ['Path', 'File Group', 'Files remaining'] do
+  - Job::CfsInitialDirectoryAssessment.file_groups_for_repository(@repository).each do |file_group|
+    - if file_group.cfs_directory.present?
+      %tr
+        %td= file_group.cfs_directory.relative_path
+        %td= link_to(file_group.title, polymorphic_path(file_group))
+        %td= file_group.running_initial_assessments_file_count

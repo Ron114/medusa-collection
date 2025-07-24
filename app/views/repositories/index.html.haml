@@ -1,0 +1,14 @@
+.row.vertical-align
+  .col-md-8
+    = render 'layouts/page_header' do
+      Repository
+  .col-md-4
+    = render 'index_actions'
+.row
+  = render 'shared/definitions/repository'
+.row
+  - cache(cache_key_for_all(Repository)) do
+    = render 'table'
+  %br
+  %div Total Medusa Size: #{Repository.aggregate_size.round} GB
+

@@ -1,0 +1,130 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+*/
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-datepicker3";
+@import 'font-awesome';
+@import 'datatables';
+@import 'variables';
+@import 'datatables_custom';
+@import 'dashboard';
+@import 'global_navigation';
+@import 'library_footer';
+@import 'library_header';
+@import 'search';
+//@import 'jquery-ui';
+
+#file_stats_summary {
+  td, th {
+    border-top: none;
+  }
+  th {
+    text-align: right;
+  }
+}
+
+.file_stats_separator {
+  background-color: $mcolor__file-stats-separator;
+}
+
+label.checkbox {
+  max-width: 200px;
+  padding: 2px;
+  background-color: $mcolor__label-checkbox;
+  border-radius: 5px;
+}
+
+#filename_search {
+  min-width: 300px;
+}
+
+.modal-checkbox-dialog {
+  min-width: 80%;
+}
+
+.vertical-align {
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+#more-actions .modal-dialog {
+  min-height: 400px;
+  min-width: 80%;
+  li {
+    list-style-type: none;
+  }
+}
+
+#modal_item_form .modal-dialog {
+  min-height: 400px;
+  min-width: 80%;
+}
+
+#accrual_comment_form .btn {
+  margin-top: 10px !important;
+}
+
+.project-items-table-actions {
+  min-width: 50px;
+  display: inline-block;
+}
+
+#item_mass_edit_modal form  {
+  .row {
+    padding-bottom: 5px;
+  }
+  .radio {
+    padding-right: 20px;
+    input {
+      padding-right: 10px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.modal .simple_form {
+  padding: 15px;
+}
+
+#directory-picker {
+  ul {
+    list-style: none;
+  }
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+/* css for wider monitors, e.g. DCC monitors */
+.container {
+  @include container-fixed;
+  @media (min-width: 1600px) {
+    width: 90vw;
+  }
+}
+
+div.show-value {
+  margin: 0 0 10px;
+}
+
+.alert-error {
+  color: red;
+  font-weight: bolder;
+}
+.info-box {
+  background: #D3D3D3;
+  border-radius: 25px;
+  padding: 25px;
+}

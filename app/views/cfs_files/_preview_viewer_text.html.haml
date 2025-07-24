@@ -1,0 +1,8 @@
+%p
+  First 500 bytes:
+-begin
+  %pre
+    = text_preview(@file)
+-rescue ActionView::Template::Error
+  .alert.alert-error
+    = error.message

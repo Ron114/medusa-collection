@@ -1,0 +1,15 @@
+.row.vertical-align
+  .col-xs-6
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        Rendering Profile:
+      %small #{@file_format_profile.name}
+  .col-xs-6
+    .btn-group.pull-right
+      = index_button(file_format_profiles_path)
+      = clone_button(clone_file_format_profile_path(@file_format_profile))
+      = edit_button(@file_format_profile)
+
+= yield

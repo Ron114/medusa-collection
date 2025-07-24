@@ -1,0 +1,8 @@
+=# must pass rights_declaration
+#rights-declaration
+  = show_field rights_declaration, :rights_basis, 'Rights Basis'
+  = show_field rights_declaration, :copyright_jurisdiction_text, 'Copyright Jurisdiction'
+  = show_field rights_declaration, :copyright_statement_text, 'Copyright Statement'
+  = show_field rights_declaration, :access_restrictions_text, 'Access Restrictions'
+  - if rights_declaration.custom_copyright_statement.present?
+    = show_field rights_declaration, :custom_copyright_statement, 'Custom Copyright Statement'

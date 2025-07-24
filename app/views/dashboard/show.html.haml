@@ -1,0 +1,19 @@
+.pull-right= icon_default_button 'Random File', 'random', random_cfs_files_path
+.tabbable
+  = render 'shared/tab_header', id: 'tab-headers', tabs: dashboard_tab_list
+  .tab-content
+    #storage-overview.tab-pane.active
+      = render 'storage_overview'
+    #running-processes.tab-pane
+      = render 'shared_js/simple_load', id: 'running-processes', path: running_processes_dashboard_path
+    #file-statistics.tab-pane
+      = render 'shared_js/datatables_load', id: 'file-statistics', path: file_stats_dashboard_path, table_ids: %w(file_stats_content_type file_stats_file_extension)
+    #red-flags.tab-pane
+      = render 'shared_js/datatables_load', id: 'red-flags', path: red_flags_dashboard_path, table_ids: 'red-flags-table'
+    #combined-events-tab.tab-pane
+      = render 'shared_js/datatables_load', id: 'combined-events-tab', path: events_dashboard_path, table_ids: 'events'
+    #accruals.tab-pane
+      = render 'shared_js/datatables_load', id: 'accruals', path: accruals_dashboard_path, table_ids: 'accruals_table'
+    - if current_user&.superuser?
+      #file-group-deletions.tab-pane
+        = render 'shared_js/datatables_load', id: 'file-group-deletions', path: file_group_deletions_dashboard_path, table_ids: 'file_group_deletions_table'

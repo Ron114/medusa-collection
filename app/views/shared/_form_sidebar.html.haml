@@ -1,0 +1,17 @@
+-#Must pass form variable f
+-#Must pass object
+-#May pass cancel_return - object or path to go to if the form is cancelled. Default is to show obj.
+- cancel_return ||= object
+- confirm ||= nil
+.col-sm-3
+  .btn-group
+    = submit_modal_button(f, object: object, 'data-confirm': confirm)
+    - if defined?(@remote) and @remote
+      = cancel_modal_button
+    - else
+      = cancel_and_go_to_button(cancel_return)
+    - if object.persisted? and safe_can?(:destroy, object)
+      = delete_button(object)
+
+  - if content_for?(:form_sidebar_extra)
+    = content_for(:form_sidebar_extra)

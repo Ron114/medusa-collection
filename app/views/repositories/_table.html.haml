@@ -1,0 +1,10 @@
+= render 'layouts/standard_table', id: :repositories, headers: ['Title', 'Contact', 'URL', 'Total Size (GB)', ''] do
+  - @repositories.each do |repository|
+    - cache([repository, repository.contact]) do
+      %tr
+        %td #{link_to repository.title, repository}
+        %td #{repository.contact_email}
+        %td #{link_to_external repository.url, repository.url}
+        %td #{repository.total_size.to_fs(:rounded, precision: 2, delimiter: ',')}
+        %td
+          = small_edit_button(repository)

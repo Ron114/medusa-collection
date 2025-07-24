@@ -1,0 +1,15 @@
+.row.vertical-align
+  .col-xs-8
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        Producer:
+      %small #{@producer.title}
+  .col-xs-4
+    .btn-group.pull-right
+      = index_button(producers_path)
+      = edit_button(@producer)
+      = icon_default_button('Report', 'table', report_producer_path(@producer), remote: true)
+
+= yield

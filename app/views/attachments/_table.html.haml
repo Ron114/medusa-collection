@@ -1,0 +1,10 @@
+- cache(@attachable) do
+
+  .row
+    .pull-left
+      = small_add_button(new_attachment_path_for(@attachable), class: 'pull-right', title: 'Add Attachment')
+
+  .row
+    - if @attachable.attachments.includes(:author).present?
+      = render layout: 'layouts/standard_table', locals: {id: :attachments, headers: ['Filename', 'Description', 'Content Type', 'Author', '']} do
+        = render partial: 'attachments/table_row', collection: @attachable.attachments, as: :attachment

@@ -1,0 +1,15 @@
+= render 'layouts/standard_table', id: :events, classes: %w(table-condensed),  headers: %w(Time Label Type Parent User Message Note Actions) do
+  - @events.each do |event|
+    - eventable = event.eventable.decorate
+    - parent = eventable.parent.decorate
+    %tr
+      %td= event.date
+      %td= link_to eventable.label, eventable
+      %td= eventable.decorated_class_human
+      %td= link_to(parent.label, parent)
+      %td= event.actor_email
+      %td= event.message
+      %td= event.note
+      %td
+        = small_edit_button(event)
+        = small_delete_button(event, message: t('events.confirm_message'))

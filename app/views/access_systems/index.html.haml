@@ -1,0 +1,10 @@
+= render layout: 'layouts/page_header' do
+  Access Systems
+
+= render layout: 'layouts/standard_table', locals: {id: :access_systems, headers: ['Name', 'Service owner', 'Application manager', '']} do
+  = render partial: 'index_table_row', collection: @access_systems, as: :access_system, cached: true
+
+%br
+
+= primary_button 'New Access System', new_access_system_path
+

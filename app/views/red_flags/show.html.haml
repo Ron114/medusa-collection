@@ -1,0 +1,18 @@
+.pull-right
+  = edit_button(@red_flag)
+
+.page_header
+  %h2
+    - red_flaggable = @red_flag.red_flaggable.decorate
+    Red Flag for #{red_flaggable.decorated_class_human}:
+    = link_to red_flaggable.label, red_flaggable
+
+.row
+  .col-sm-8
+    .well
+      = show_field @red_flag, :message
+      = show_field @red_flag, :priority
+      = show_field @red_flag, :status
+      = show_field @red_flag, :notes
+      = show_field @red_flag, :created_at
+      = show_field @red_flag, :updated_at

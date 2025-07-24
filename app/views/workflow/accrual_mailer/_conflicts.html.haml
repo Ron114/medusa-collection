@@ -1,0 +1,33 @@
+%h4 Conflict report
+
+- serious_conflicts = @workflow_accrual.workflow_accrual_conflicts.serious
+- if serious_conflicts.present?
+  %p
+    You have the following duplicated files where the checksums disagree. From the Medusa
+    dashboard you may either abort the ingest or refer it to a Medusa admin
+    for evaluation if you wish to overwrite the affected files.
+  %ul
+    - serious_conflicts.each do |conflict|
+      %li= conflict.path
+- else
+  %p
+    There were no conflicts where the checksums disagreed.
+
+- nonserious_conflicts = @workflow_accrual.workflow_accrual_conflicts.not_serious
+- if nonserious_conflicts.present?
+  %p
+    You have the following duplicated files where the checksums agree. These are not
+    considered serious and if there are no other conflicts you may proceed normally.
+  %ul
+    - nonserious_conflicts.each do |conflict|
+      %li= conflict.path
+
+- if !@workflow_accrual.excluded_file_conflicts.nil?
+  %p
+    The following paths have filenames that have been dissallowed by the system:
+  %ul
+    - @workflow_accrual.excluded_file_conflicts.each do |conflict_path|
+      %li= conflict_path
+
+
+

@@ -1,0 +1,10 @@
+- cache(@collection) do
+  - load_collection_file_stats
+
+  .row
+    = render partial: 'file_stats_header'
+  .row
+    .col-sm-6
+      = render partial: 'file_stats_content_type'
+    .col-sm-6
+      = render partial: 'file_stats_file_extension'

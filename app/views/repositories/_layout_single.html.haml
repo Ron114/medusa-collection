@@ -1,0 +1,30 @@
+.row.vertical-align
+  .col-xs-6
+    = render 'layouts/page_header' do
+      - if content_for?(:title)
+        = yield(:title)
+      - else
+        Repository:
+      %small #{@repository.title}
+  .col-xs-6
+    .btn-toolbar.pull-right
+      .btn-group
+        = assessments_button(assessments_repository_path(@repository))
+        = events_button(events_repository_path(@repository))
+        = red_flags_button(red_flags_repository_path(@repository))
+        = timeline_button(timeline_repository_path(@repository))
+        = edit_button(@repository)
+        .btn-group
+          = render 'shared/dropdown_toggle', title: :Expand, icon: :plus
+          %ul.dropdown-menu.dropdown-menu-right
+            %li= link_to 'Collection', new_collection_path(repository_id: @repository.id), title: 'Add Collection'
+            %li= link_to 'Virtual Repository', new_virtual_repository_path(repository_id: @repository.id), title: 'Add Virtual Repository'
+        .btn-group
+          = render 'shared/dropdown_toggle', title: :Export, text: :Export
+          %ul.dropdown-menu.dropdown-menu-right
+            %li= link_to 'CSV', collections_repository_path(@repository, format: 'csv')
+      - if content_for?(:extra_links)
+        .btn-group
+          = yield(:extra_links)
+
+= yield

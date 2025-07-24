@@ -1,0 +1,16 @@
+.pull-right
+  = edit_button(@attachment)
+  = delete_button(@attachment)
+
+= render layout: 'layouts/page_header' do
+  Attachment: #{@attachment.attachment_file_name}
+
+.row
+  .col-sm-8
+    .well
+      = show_field @attachment, :author_email
+      = show_field @attachment, :attachment_file_name
+      = show_field @attachment, :description
+      = show_field @attachment, :attachment_content_type, 'Content Type'
+      = show_field @attachment.attachment, :path, 'Path'
+      = show_field @attachment.attachment, :url, 'Url'

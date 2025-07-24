@@ -1,0 +1,14 @@
+= render layout: 'layout_single' do
+  %h1 File information
+
+  .row
+    #cfs-file-metadata.col-sm-4
+      = render partial: 'show_metadata'
+    .col-sm-5
+      = render partial: 'show_preview'
+    .col-sm-3
+      = render partial: 'show_fixity_check_results'
+
+  - if @file_format_test.present?
+    = render partial: 'show_file_format_test'
+

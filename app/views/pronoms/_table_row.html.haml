@@ -1,0 +1,7 @@
+%tr{id: "pronom_#{pronom.id}"}
+  %td= pronom.decorate.link(target: '_blank')
+  %td= pronom.version
+  %td
+    - if can?(:update, @file_format)
+      = small_default_button('Edit', edit_pronom_path(pronom), remote: true, title: 'Edit Pronom')
+      = small_danger_button('Delete', pronom_path(pronom), remote: true, title: 'Delete Pronom')

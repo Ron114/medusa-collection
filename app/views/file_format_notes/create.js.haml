@@ -1,0 +1,4 @@
+- if @created
+  $("#file_format_notes .panel-body").append("#{escape_javascript(render('show', note: @note))}")
+- else
+  alert("Error creating Note!");

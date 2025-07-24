@@ -1,0 +1,43 @@
+= simple_form_for :mass_unflag, url: mass_unflag_red_flags_path, html: {class: 'form-inline'}, remote: true do |f|
+  .row
+    Filter:
+    = link_to 'All', '#', onclick: 'red_flag_filter.all(); return false;'
+    |
+    = link_to 'Flagged', '#', onclick: 'red_flag_filter.flagged(); return false;'
+    |
+    = link_to 'Unflagged', '#', onclick: 'red_flag_filter.unflagged(); return false;'
+    &nbsp;
+    Sort:
+    = link_to 'Most Recent', '#', onclick: 'red_flag_sorter.recent(); return false;'
+    |
+    = link_to 'Most Important', '#', onclick: 'red_flag_sorter.priority(); return false;'
+    - if safe_can?(:mass_unflag, RedFlag)
+      .pull-right
+        %a.btn.btn-default#check_all{href: '#red-flags-table', 'data-toggle': 'checkboxes', 'data-action': 'check', title: 'Check All', role: :button}
+          = fa_icon 'check-square-o', text: 'All'
+        %a.btn.btn-default#uncheck_all{href: '#red-flags-table', 'data-toggle': 'checkboxes', 'data-action': 'uncheck', title: 'Uncheck All', role: :button}
+          = fa_icon 'square-o', text: 'All'
+        = submit_button(f, label: 'Unflag Checked')
+  .row
+    %div
+      = render 'layouts/standard_table', id: 'red-flags-table', classes: 'table-condensed', headers: red_flags_table_headers do
+        - @red_flags.each do |red_flag|
+          - red_flaggable = red_flag.red_flaggable.decorate
+          %tr{id: "red-flag-#{red_flag.id}"}
+            %td= red_flaggable.cfs_type
+            %td= red_flaggable.cfs_label
+            %td= red_flag.priority
+            %td.status= red_flag.status
+            %td= red_flag.created_at
+            %td= red_flag.message
+            - if safe_can?(:mass_unflag, RedFlag)
+              %td
+                - if red_flag.flagged?
+                  = check_box_tag('', red_flag.id, false, name: 'mass_unflag[]', id: "mass_unflag_#{red_flag.id}", class: 'mass-unflag-checkbox')
+            %td
+              = small_view_button(red_flag)
+              = small_edit_button(red_flag)
+              - if red_flag.flagged?
+                %span.unflag-link
+                  = small_default_button('Unflag', unflag_red_flag_path(red_flag), method: :post, remote: true)
+= render 'shared_js/checkboxes_init', selector: '#red-flags-table'

@@ -1,0 +1,51 @@
+%p
+  The pending request for ingest is to transfer all content from the
+  source directory #{@workflow_accrual.staging_path}
+  to Medusa File Group '#{@workflow_accrual.file_group_title}',
+  Collection '#{@workflow_accrual.collection.title}'
+  - if @workflow_accrual.collection.external_id.present?
+    [#{@workflow_accrual.collection.external_id}]
+  at the destination
+  file path #{@workflow_accrual.relative_target_path}.
+
+%p
+  If approved, #{@workflow_accrual.directory_count} folders and
+  #{@workflow_accrual.top_level_file_count} top level files
+  containing a total of #{@workflow_accrual.total_accrual_key_count} files
+  (#{number_to_human_size(@workflow_accrual.size)})
+  would transfer to the destination path above.
+
+%p
+  An abbreviated view of the new file structure, to verify this ingest
+  will arrive at the right place, would be:
+
+%ul
+  %li
+    #{@workflow_accrual.relative_target_path}
+    %ul
+      - @workflow_accrual.workflow_accrual_directories.order(:name).limit(5).each do |directory|
+        %li [folder] #{directory.name}
+      - if @workflow_accrual.workflow_accrual_directories.count > 5
+        %li ([#{@workflow_accrual.workflow_accrual_directories.count - 5}] more sibling folders in ingest)
+    %ul
+      - @workflow_accrual.workflow_accrual_files.order(:name).limit(5).each do |file|
+        %li [file] #{file.name}
+      - if @workflow_accrual.workflow_accrual_files.count > 5
+        %li ([#{@workflow_accrual.workflow_accrual_files.count - 5}] more sibling files in ingest)
+
+- if @workflow_accrual.empty_file_report.present?
+  %div
+    Some zero size files were detected in the ingest request
+    %pre
+      = @workflow_accrual.empty_file_report
+        
+%p
+  If this seems incorrect, please take a close look at source and
+  destination files before proceeding.
+
+%p
+  Medusa’s pre-ingest scan detects #{@workflow_accrual.workflow_accrual_conflicts.serious.count}
+  md5 conflicts in this request.
+  %br
+  %em A duplicate key in a no-overwrites accrual is regarded as a serious conflict, although no md5 check is performed.
+

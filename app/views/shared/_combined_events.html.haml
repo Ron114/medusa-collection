@@ -1,0 +1,8 @@
+.row
+  %table.table.table-striped#cascaded_events
+    %thead
+      %tr
+        - @helper.headers.each do |header|
+          %th= header
+= render 'shared_js/search_datatable_init', selector: '#cascaded_events', search_helper: @helper
+

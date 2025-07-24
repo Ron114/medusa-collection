@@ -1,0 +1,16 @@
+= simple_form_for @collection, html: { class: 'form-horizontal' }, wrapper: :horizontal_form do |f|
+  .row
+    = render 'shared/form_sidebar', f: f, object: @collection, cancel_return: (@collection.repository if @collection.new_record?)
+    .col-sm-9
+      .tabbable
+        = render 'shared/tab_header', id: 'edit-tabs', tabs: collection_form_tab_list
+        .tab-content
+          #descriptive-metadata.tab-pane.active
+            = render 'public_notice'
+            = render 'form_descriptive_metadata', f: f
+          #administrative-metadata.tab-pane
+            = render 'form_administrative_metadata', f: f
+          #rights-metadata.tab-pane
+            = render 'rights_declarations/nested_form', containing_form: f, rights_declaration: @collection.rights_declaration
+          #subcollections.tab-pane
+            = render 'form_subcollections', f: f

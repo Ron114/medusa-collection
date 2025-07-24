@@ -1,0 +1,12 @@
+= render 'layouts/page_header' do
+  Institutions
+
+= render 'layouts/standard_table', id: :institutions, headers: ['Name', ''] do
+  - @institutions.each do |institution|
+    %tr
+      %td= link_to(institution.name, institution)
+      %td= small_edit_button(institution)
+
+%br
+
+= primary_button('New Institution', new_institution_path)

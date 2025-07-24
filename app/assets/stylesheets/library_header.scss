@@ -1,0 +1,29 @@
+@import 'variables';
+
+.library-header {
+  position: relative;
+  z-index: 1002;
+  margin-bottom: 0;
+  background-color: $color__dark-navy;
+  width: 100%;
+  margin-top: 0;
+  padding: 5px;
+}
+
+.banner-image-library, .banner-image-imark {
+  padding: 0 0;
+  transition: all .15s ease-in-out;
+  :hover {
+    opacity: .7;
+    transition: all .15s ease-in-out;
+  }
+}
+
+#medusa-logo a {
+  text-decoration: none;
+}
+
+#wordmark img {
+  display: inline-block;
+  margin-right: 20px;
+}

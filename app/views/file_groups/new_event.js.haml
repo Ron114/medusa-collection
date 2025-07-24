@@ -1,0 +1,3 @@
+- html = render 'events/modal_form', eventable: @file_group, remote: true, dialog_id: 'add-event-file-group'
+$("#event_form").html("#{escape_javascript(html)}");
+$("#add-event-file-group").modal("show");

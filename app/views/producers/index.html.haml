@@ -1,0 +1,18 @@
+= render 'layouts/page_header' do
+  Producer
+
+= render 'shared/definitions/producer'
+
+= render 'layouts/standard_table', id: :producers, headers: ['Title', 'Administrator', 'URL', ''] do
+  - @producers.each do |producer|
+    %tr
+      %td #{link_to producer.title, producer}
+      %td #{producer.administrator_email}
+      %td #{link_to_external producer.url, producer.url}
+      %td
+        = small_view_button(producer)
+        = small_edit_button(producer)
+
+%br
+
+= primary_button('New Producer', new_producer_path)

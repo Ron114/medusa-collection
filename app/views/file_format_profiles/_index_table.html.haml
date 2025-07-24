@@ -1,0 +1,5 @@
+%table#file_format_profiles.table.table-striped
+  = render 'index_table_header'
+  %tbody
+    = render partial: 'index_table_row', collection: @file_format_profiles, as: :file_format_profile
+      

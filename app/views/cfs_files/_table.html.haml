@@ -1,0 +1,4 @@
+= render layout: 'layouts/standard_table', locals: {id: :cfs_files, headers: ['Filename', 'Path', 'File Group', 'Collection']} do
+  = render partial: 'cfs_files/table_row', collection: @cfs_files, as: :cfs_file
+
+-#if you want pagination you have to do it in the caller, as it may vary depending on how this table is generated

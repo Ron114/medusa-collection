@@ -1,0 +1,26 @@
+%table.table.table-hover.table-bordered.table-condensed#storage-summary
+  %caption Storage
+  %thead
+    %tr
+      %th state
+      %th size(GB)
+      %th files
+  %tbody
+    %tr
+      %td Bit Level
+      %td.value= number_with_precision(@bit_level_storage_summary['size'].to_d / 1.gigabyte, precision: 2, delimiter: ',')
+      %td.value= @bit_level_storage_summary['count'].to_i.to_fs(:delimited)
+
+%table#storage-overview-table.table.table-hover.table-bordered.table-condensed
+  %caption Storage Summary
+  %thead
+    %tr
+      %th Repository
+      %th Bit Level Files
+      %th Bit Level Size (GB)
+  %tbody
+    - @repository_storage_summary.each do |repository_id, summary|
+      %tr
+        %td= link_to summary[:title], repository_path(repository_id)
+        %td= summary['BitLevelFileGroup'][:count].to_fs(:delimited)
+        %td= number_with_precision(summary['BitLevelFileGroup'][:size], precision: 2, delimiter: ',')

@@ -1,0 +1,34 @@
+= render layout: 'layouts/bootstrap_modal', locals: {id: 'add-files-dialog'} do
+  .modal-header
+    %h4 Add files
+  .modal-body
+    %p.strong Directory must not contain files named Thumbs.db or .DS_Store, or directories named CaptureOne.
+    %p
+      To avoid delays, use the
+      %a(href="/cfs_directories/accrual_clean_staging_tool")
+        Medusa Clean Staging Tool
+      to detect and remove any excluded files or directories before accrual.
+    = simple_form_for :accrual, url: submit_accruals_path, html: {id: 'add-files-form'} do |f|
+      .btn-toolbar
+        .btn-group
+          = default_button('Up', @accrual.parent_display_path, id: 'add-files-up-link', remote: true)
+          = default_button('Toggle Directories', '#', onclick: 'toggle_accrual_directories();')
+          = default_button('Toggle Files', '#', onclick: 'toggle_accrual_files();')
+        .btn-group
+          = submit_button(f, value: 'Ingest')
+          = cancel_modal_button
+      = f.input :cfs_directory_id, as: :hidden
+      = f.input :staging_path, as: :hidden
+      = f.input :allow_overwrite, as: :boolean
+      #add-files-listing
+        = render 'cfs_directories/accrual_listing'
+      .btn-group
+        = submit_button(f, value: 'Ingest')
+        = cancel_modal_button
+
+= render layout: 'layouts/bootstrap_modal', locals: {id: 'cant-add-files-dialog'} do
+  .modal-header
+    %h4 Add files
+  .modal-body
+    There is already an accrual in progress for this directory. Please wait for that
+    accrual to finish before initiating another.

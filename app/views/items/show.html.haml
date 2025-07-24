@@ -1,0 +1,10 @@
+= render 'layout_single' do
+  .row
+    .col-md-4
+      = render 'show_administrative_metadata'
+      %hr
+      = render 'show_catalog_metadata'
+      %hr
+      = render 'show_archival_metadata'
+    .col-md-8
+      = render 'show_notes_and_description'

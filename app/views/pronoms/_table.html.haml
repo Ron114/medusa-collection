@@ -1,0 +1,2 @@
+= render 'layouts/standard_table', id: :pronoms, headers: ['Pronom ID', 'Version', ''] do
+  = render partial: 'pronoms/table_row', collection: @file_format.pronoms.decorate, as: :pronom

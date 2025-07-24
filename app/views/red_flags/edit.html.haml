@@ -1,0 +1,17 @@
+.page_header
+  %h2
+    - red_flaggable = @red_flag.red_flaggable.decorate
+    Red Flag for #{red_flaggable.decorated_class_human}:
+    = link_to red_flaggable.label, red_flaggable
+
+= simple_form_for @red_flag, html: {class: 'form-horizontal'} do |f|
+
+  .col-sm-9
+    %div
+      = f.input :message, disabled: true
+      = f.input :priority, as: :select, include_blank: false, collection: RedFlag::PRIORITIES
+      = f.input :status, as: :select, include_blank: false, collection: RedFlag::STATUSES
+      = f.input :notes
+    %div
+      = submit_button(f)
+      = cancel_and_go_to_button(@red_flag)

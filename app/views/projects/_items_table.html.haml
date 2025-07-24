@@ -1,0 +1,12 @@
+= simple_form_for :mass_action, url: mass_action_project_path(@project), html: {class: 'form-inline' }, remote: true do |f|
+  .row
+    .col-sm-4
+      .pull-left
+        = render 'items_table_left_buttons'
+    .col-sm-8
+      .pull-right
+        = render 'items_table_right_buttons', f: f
+  = render 'items_table_table'
+= render 'item_mass_edit_modal'
+= render 'items_table_js_init'
+= render 'shared_js/checkboxes_init', selector: '#items'

@@ -1,0 +1,21 @@
+= render 'layout_single' do
+  .row
+    .col-xs-12
+      = render 'metadata', file_format: @file_format
+  .row
+    .col-xs-12
+      = render 'show_file_format_profiles'
+  .row
+    .col-xs-12
+      = render 'show_file_format_pronoms'
+  .row
+    .col-xs-12
+      = render 'show_file_format_notes'
+  .row
+    .col-xs-12
+      = render 'show_file_format_normalization_paths'
+  .row
+    .col-xs-12
+      = render 'show_file_format_attachments'
+
+  #form_placeholder

@@ -1,0 +1,13 @@
+-# Must pass in locals:
+-#  id = id for the tab header list
+-#  tabs = list of lists (or strings) for tabs. See TabSpec class for details.
+- active_index ||= 0
+%ul.nav.nav-tabs{id: id}
+  - tabs.each_with_index do |spec, index|
+    - tab_spec = TabSpec.new(spec)
+    %li{class: (index == active_index ? 'active' : '')}
+      %a{href: "##{tab_spec.id}", 'data-toggle': 'tab', title: tab_spec.title}
+        - if tab_spec.icon
+          = fa_icon(tab_spec.icon)
+        - else
+          = tab_spec.label

@@ -1,0 +1,11 @@
+.file-format-note{id: "file_format_note_#{note.id}"}
+  .well
+    %div
+      - if can?(:update, @file_format)
+        .pull-right
+          = small_default_button('Edit', edit_note_path(note), remote: true, title: 'Edit Note')
+          = small_danger_button('Delete', note_path(note), remote: true, title: 'Delete Note')
+      .show-value
+        #{note.user.netid} - #{note.date}
+    .show-value
+      #{note.note_html}
